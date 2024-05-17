@@ -492,5 +492,10 @@ func findMaxAge(resp *http.Response) (*time.Duration, error) {
 			return &duration, nil
 		}
 	}
-	return nil, errors.New("Could not find expiry time from HTTP headers")
+
+	// fix "cache-control: private" issue
+	oneHour := 1 * time.Hour
+	return &oneHour, nil
+
+	// return nil, errors.New("Could not find expiry time from HTTP headers")
 }
